@@ -5,7 +5,7 @@ using UnityEngine;
 public class Grab : MonoBehaviour
 {
 
-    private bool enterCollision = false;
+    public bool enterCollision = false;
     private GameObject objectP;
 
     // Start is called before the first frame update
@@ -23,13 +23,12 @@ public class Grab : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collision.gameObject.CompareTag("Grue"))
+        if (collider.gameObject.CompareTag("Grue"))
         {
-            objectP = collision.gameObject;
+            objectP = collider.gameObject;
             enterCollision = true;
-            Debug.Log("GameObject1 collided with ");
         }
     }
 }
