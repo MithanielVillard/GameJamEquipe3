@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Cable : MonoBehaviour
 {
-    [SerializeField] public Transform startPoint;
-    [SerializeField] public Transform endPoint;
+    [SerializeField] private Transform startPoint;
+    [SerializeField] private Transform endPoint;
     [SerializeField] public Vector3 distance;
     public LineRenderer lineRenderer;
 
