@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class ObjectGrabber : MonoBehaviour
 {
 
+    [SerializeField] private Lock _lock;
     [SerializeField, Header("Stats")]
     private float grabOffset = 0.5f;
     
@@ -48,11 +49,18 @@ public class ObjectGrabber : MonoBehaviour
 
         if(hit.collider != null)
         {
+            if (hit.collider.CompareTag("Ground"))
+            {
+                var l = Instantiate(_lock);
+                l.transform.position = hit.transform.position;
+                return;
+            }
             _DraggingObject = hit.collider.GetComponent<GrabbableObject>();
             _startPos = _DraggingObject.transform.position;
             _offset = _startPos - _camera.ScreenToWorldPoint(Input.mousePosition);
             _offset.y += grabOffset;
             _DraggingObject.BeginDrag();
+            
         }
     }
 
