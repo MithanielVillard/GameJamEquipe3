@@ -12,6 +12,7 @@ TagManager:
   - Far
   - Movable
   - SuicidePoint
+  - Grue
   layers:
   - Default
   - TransparentFX
