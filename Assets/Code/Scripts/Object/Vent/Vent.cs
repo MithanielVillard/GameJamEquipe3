@@ -5,21 +5,21 @@ using UnityEngine;
 public class Vent : MonoBehaviour
 {
     [SerializeField] private GameObject otherVent;
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-            collision.transform.position = otherVent.transform.position;
+            float posOffset = 0;
+            if (otherVent.transform.position.x > gameObject.transform.position.x)
+            {
+                posOffset += 2;
+            }
+            else
+            {
+                posOffset -= 2;
+            }
+            collision.transform.position = otherVent.transform.position + new Vector3(posOffset, 3);
         }
     }
 }

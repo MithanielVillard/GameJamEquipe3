@@ -214,10 +214,13 @@ public class BasicIA : MonoBehaviour
         } else if (!movementStateMachine.IsName("Fall") && hasStartedFall)
         {
             float fallLenght = fallStartY - transform.position.y;
-            if (fallLenght > 15)
+            if (fallLenght > 15 && !groundedOnBin)
             {
                 Die();
-                Debug.Log("Mry");
+            }
+            else
+            {
+                //TODO : PERDRE UNE VIE
             }
 
             hasStartedFall = false;
