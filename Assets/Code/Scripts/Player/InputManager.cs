@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private ObjectGrabber _grabber;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
+        _grabber = GetComponent<ObjectGrabber>();
+    }
+    
+    public void OnMousePressed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+            _grabber.OnMousePressed();
         
+        if (ctx.canceled)
+            _grabber.OnMouseReleased();
     }
 }
