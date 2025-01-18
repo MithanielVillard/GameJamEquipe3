@@ -7,11 +7,11 @@ public class Grab : MonoBehaviour
 
     public bool enterCollision = false;
     private GameObject objectP;
+    private Rigidbody2D rb;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -20,6 +20,10 @@ public class Grab : MonoBehaviour
         if (enterCollision)
         {
             transform.position = objectP.transform.position;
+
+
+            rb.velocity = objectP.GetComponent<Rigidbody2D>().velocity;
+
         }
     }
 

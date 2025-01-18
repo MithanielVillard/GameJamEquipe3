@@ -19,5 +19,10 @@ public class Crochet : MonoBehaviour
         var cable = transform.parent.GetComponent<Cable>();
         transform.up = cable.distance.normalized;
 
+        if (transform.position.y > transform.parent.GetChild(0).transform.position.y)
+        {
+            transform.position.Set(transform.position.x, transform.parent.GetChild(0).transform.position.y, transform.position.z);
+        }
+
     }
 }

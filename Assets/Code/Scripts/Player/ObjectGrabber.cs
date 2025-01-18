@@ -23,7 +23,7 @@ public class ObjectGrabber : MonoBehaviour
         if (_DraggingObject)
         {
             var pos =_camera.ScreenToWorldPoint(Input.mousePosition) + _offset;
-            pos.z = 10;
+            pos.z = 0;
 
             pos.x = Mathf.Clamp(pos.x, _DraggingObject.minBound.x, _DraggingObject.maxBound.x);
             pos.y = Mathf.Clamp(pos.y, _DraggingObject.minBound.y, _DraggingObject.maxBound.y);
