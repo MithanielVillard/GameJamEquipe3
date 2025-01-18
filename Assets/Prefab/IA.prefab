@@ -477,25 +477,25 @@ MonoBehaviour:
   jumpForce: 10
   jumpTime: 0.3
   jumpProgress: 0
+  canJump: 0
   fallStartY: 0
-  hasStartedFall: 0
+  hasStartedFall: 1
   groundSensor: {fileID: 5076594487379792694}
   lWallSensor: {fileID: 2718678304992418649}
   rWallSensor: {fileID: 3489616390440290869}
-  destination: {fileID: 0}
-  start: {fileID: 0}
+  _Effects: []
+  nearestSuicidePoint: {fileID: 0}
+  levelStart: {fileID: 0}
+  levelEnd: {fileID: 0}
   winText: {fileID: 0}
-  currentEffect:
-    effectTime: 1
-    effectProgression: 0
-    speedModifier: 1
-    jumpModifier: 1
-    destination: {fileID: 0}
-    lockWalking: 0
+  destination: {fileID: 0}
   _direction: {x: 0, y: 0}
   _movementX: 0
-  respawnTime: 0
+  respawnTime: 1
   respawnProgress: 0
+  references:
+    version: 2
+    RefIds: []
 --- !u!60 &6350948811326623323
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -508,7 +508,7 @@ PolygonCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d8e3af1f2fcec469b427bd2fcb513d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  culledTag: Far
+  culledTag: SuicidePoint
   isCollided: 0
 --- !u!61 &522997158793216259
 BoxCollider2D:
