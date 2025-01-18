@@ -15,6 +15,7 @@ public class BasicIA : MonoBehaviour
     [SerializeField] private bool canJump;
     [SerializeField] private float fallStartY;
     [SerializeField] private bool hasStartedFall;
+    [SerializeField] private bool groundedOnBin;
     
     [Header("States Manager")]
     [SerializeField] private Sensor groundSensor;
@@ -201,13 +202,19 @@ public class BasicIA : MonoBehaviour
         {
             if (!hasStartedFall)
             {
+                groundedOnBin = false;
                 fallStartY = transform.position.y;
                 hasStartedFall = true;
+            }
+            else
+            {
+                if (transform.position.y > fallStartY)
+                    fallStartY = transform.position.y;
             }
         } else if (!movementStateMachine.IsName("Fall") && hasStartedFall)
         {
             float fallLenght = fallStartY - transform.position.y;
-            if (fallLenght > 10)
+            if (fallLenght > 15)
             {
                 Die();
                 Debug.Log("Mry");
@@ -222,6 +229,9 @@ public class BasicIA : MonoBehaviour
     {
         switch (other.gameObject.tag)
         {
+            case "Benne":
+                groundedOnBin = true;
+                break;
             case "Goal":
                 winText.enabled = true;
                 Time.timeScale = 0.1f;

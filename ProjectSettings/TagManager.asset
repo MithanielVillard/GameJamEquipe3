@@ -13,6 +13,8 @@ TagManager:
   - Movable
   - SuicidePoint
   - Grue
+  - Trampo
+  - Benne
   layers:
   - Default
   - TransparentFX
