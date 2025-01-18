@@ -10,6 +10,7 @@ TagManager:
   - Death
   - Effect
   - Far
+  - Sky
   layers:
   - Default
   - TransparentFX

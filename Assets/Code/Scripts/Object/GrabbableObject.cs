@@ -28,6 +28,7 @@ public class GrabbableObject : MonoBehaviour
     void OnMouseEnter()
     {
         CurrentObject = this;
+        print("Hello");
     }
 
     private void OnMouseExit()
