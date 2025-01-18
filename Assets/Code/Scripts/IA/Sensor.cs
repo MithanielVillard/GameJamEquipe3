@@ -10,7 +10,7 @@ public class Sensor : MonoBehaviour
     [SerializeField] private string culledTag;
     public bool isCollided;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag(culledTag))
         {
@@ -25,5 +25,9 @@ public class Sensor : MonoBehaviour
             isCollided = false;
         }
     }
-    
+
+    private void OnMouseEnter()
+    {
+        Debug.Log("Caca");
+    }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -21,11 +22,11 @@ public class BasicIA : MonoBehaviour
     [SerializeField] private Sensor rWallSensor;
     
     [Header("Points of Interest")]
-    public Transform destination;
+    [SerializeReference] public List<Effect> _Effects;
     [SerializeField] private Transform start;
     [SerializeField] private TextMeshProUGUI winText;
-
-    [SerializeField] private Effect currentEffect = new();
+    public Transform destination;
+    
     private Animator _stateMachine;
     private Rigidbody2D _rigidbody;
     [SerializeField] private Vector2 _direction;
@@ -41,6 +42,8 @@ public class BasicIA : MonoBehaviour
 
         _stateMachine = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        
+        _Effects.Add(new Effect());
 
     }
     
@@ -63,12 +66,13 @@ public class BasicIA : MonoBehaviour
         }
         
         // Apply an effect on the IA
-        currentEffect.Update(this);
-        if (currentEffect.IsEnd)
+        _Effects[0].Update(this);
+        if (_Effects[0].IsEnd)
         {
-            currentEffect.Reset();
+            _Effects[0].Reset();
+            _Effects[0] = new Effect();
         }
-        
+
         _direction = new Vector2(destination.position.x - transform.position.x, destination.position.y - transform.position.y);
         Vector3.Normalize(_direction);
         if (_direction.x < 0)
@@ -103,12 +107,11 @@ public class BasicIA : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        // Make action based on state machine current state
         AnimatorStateInfo movementStateMachine = _stateMachine.GetCurrentAnimatorStateInfo(0);
-        _movementX = Time.fixedDeltaTime * _direction.x * speed * currentEffect.speedModifier * Convert.ToInt32(!currentEffect.lockWalking);
-        float jump = jumpForce * (1 - jumpProgress/jumpTime) * currentEffect.jumpModifier;
-        
+        _movementX = Time.fixedDeltaTime * _direction.x * speed * _Effects[0].speedModifier * Convert.ToInt32(!_Effects[0].lockWalking);
+        float jump = jumpForce * (1 - jumpProgress/jumpTime) * _Effects[0].jumpModifier;
+
+        _rigidbody.gravityScale = _Effects[0].gravityScale;
         if (movementStateMachine.IsName("Walk"))
         {
             _rigidbody.velocity = new Vector2(_movementX, _rigidbody.velocity.y);
@@ -148,12 +151,13 @@ public class BasicIA : MonoBehaviour
                 Time.timeScale = 0.1f;
                 break;
             case "Death":
+                respawnProgress = 0;
                 _stateMachine.SetTrigger("OnDeath");
                 break;
             case "Effect":
             case "Far":
                 Debug.Log("Pickuped");
-                currentEffect = other.GetComponent<PickupableEffect>().AttachedEffect;
+                _Effects[0] = other.GetComponent<PickupableEffect>().AttachedEffect;
                 break;
                 
         }
