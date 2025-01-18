@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GrabbableObject : MonoBehaviour
@@ -12,7 +13,7 @@ public class GrabbableObject : MonoBehaviour
     [field:SerializeField] public Vector2 MinBound { get; set; }
     [field:SerializeField] public Vector2 MaxBound { get; set; }
 
-    public bool CanDrop { get; private set; } = true;
+    public GameObject BehindObject { get; private set; }
     
     private GameObject _shadow;
     private Vector3 _startScale;
@@ -36,6 +37,11 @@ public class GrabbableObject : MonoBehaviour
         _shadow.transform.localPosition = new Vector3(shadowOffset.x, shadowOffset.y, 0f);
         _renderer.sortingOrder = 11;
         _mat.SetInt("_Enabled", 1);
+
+        Rigidbody2D rb = transform.AddComponent<Rigidbody2D>();
+        rb.gravityScale = 0.0f;
+        rb.excludeLayers = LayerMask.GetMask("Ignore Raycast");
+        
         DeactivateChildrenCollision();
         if (_shadow.TryGetComponent(out SpriteRenderer renderer))
         {
@@ -50,6 +56,7 @@ public class GrabbableObject : MonoBehaviour
 
     public void EndDrag()
     {
+        Destroy(GetComponent<Rigidbody2D>());
         _collider.size *= 1.5f;
         ActivateChildrenCollision();
         _mat.SetInt("_Enabled", 0);
@@ -60,13 +67,13 @@ public class GrabbableObject : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         _mat.SetColor("_Color", Color.red);
-        CanDrop = false;
+        BehindObject = other.gameObject;
     }
     
     private void OnTriggerExit2D(Collider2D other)
     {
         _mat.SetColor("_Color", Color.green);
-        CanDrop = true;
+        BehindObject = null;
     }
 
     private void DeactivateChildrenCollision()

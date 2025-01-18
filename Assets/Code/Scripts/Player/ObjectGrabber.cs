@@ -59,8 +59,12 @@ public class ObjectGrabber : MonoBehaviour
     public void OnMouseReleased()
     {
         if (_DraggingObject == null) return;
-        if (_DraggingObject.CanDrop == false)
+        if (_DraggingObject.BehindObject != null)
         {
+            if (_DraggingObject.BehindObject.TryGetComponent(out BasicIA ia))
+            {
+                //ia.di
+            }
             _DraggingObject.transform.DOMove(_startPos, 0.5f).SetEase(Ease.InOutExpo);
         }
         
