@@ -87,7 +87,7 @@ public class BasicIA : MonoBehaviour
             }
         }
 
-        if (!destination && nearestSuicidePoint)
+        if (nearestSuicidePoint)
         {
             destination = nearestSuicidePoint.transform;
         } else if (!destination)
