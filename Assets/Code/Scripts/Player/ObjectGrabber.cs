@@ -24,6 +24,9 @@ public class ObjectGrabber : MonoBehaviour
         {
             var pos =_camera.ScreenToWorldPoint(Input.mousePosition) + _offset;
             pos.z = 10;
+
+            pos.x = Mathf.Clamp(pos.x, _DraggingObject.minBound.x, _DraggingObject.maxBound.x);
+            pos.y = Mathf.Clamp(pos.y, _DraggingObject.minBound.y, _DraggingObject.maxBound.y);
             
             var distance = pos - _DraggingObject.transform.position;
             var rot = _DraggingObject.transform.rotation.eulerAngles;

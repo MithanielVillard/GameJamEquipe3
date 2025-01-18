@@ -9,6 +9,9 @@ public class GrabbableObject : MonoBehaviour
     [SerializeField, Header("Stats")] private Vector2 shadowOffset;
     [SerializeField] private Color shadowColor;
     
+    [field:SerializeField] public Vector2 minBound { get; set; }
+    [field:SerializeField] public Vector2 maxBound { get; set; }
+    
     public static GrabbableObject CurrentObject;
     
     private GameObject _shadow;
@@ -41,7 +44,7 @@ public class GrabbableObject : MonoBehaviour
         Destroy(_shadow.GetComponent<GrabbableObject>());
         if (_shadow.TryGetComponent(out SpriteRenderer renderer))
         {
-            Material mat = new Material(Shader.Find("Sprites/Default"));
+            Material mat = new Material(Shader.Find("Sprites/Default"));    
             renderer.material = mat;
             renderer.color = shadowColor;
             
