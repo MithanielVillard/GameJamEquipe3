@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class MovingRight : MonoBehaviour
 {
+    [SerializeField] private float speed;
+    [SerializeField] private float max;
+
     private void Update()
     {
-        transform.Translate(Vector2.right * Time.deltaTime * 2);
+        if (transform.position.x < max)
+        { 
+            transform.Translate(Vector2.right * Time.deltaTime * speed); 
+        }
     }
 }
