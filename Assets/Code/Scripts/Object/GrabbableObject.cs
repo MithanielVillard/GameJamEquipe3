@@ -6,7 +6,6 @@ using UnityEngine;
 public class GrabbableObject : MonoBehaviour
 {
     
-    [SerializeField, Header("Main")] private bool isSelectable = true;
     [SerializeField, Header("Stats")] private Vector2 shadowOffset = new Vector2(0, -3);
     [SerializeField] private Color shadowColor;
     [field:SerializeField] public bool UseBound { get; set; }

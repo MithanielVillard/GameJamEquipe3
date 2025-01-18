@@ -13,7 +13,7 @@ public class Lock : MonoBehaviour
         {
             transform.DOScale(new Vector3(0.0f, 0.0f, 0.0f), 0.3f).SetEase(Ease.OutBounce).onComplete = () =>
             {
-                Destroy(this);
+                Destroy(gameObject);
             };
         };
     }
