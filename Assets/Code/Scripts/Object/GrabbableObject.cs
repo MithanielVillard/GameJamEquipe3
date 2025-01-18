@@ -20,6 +20,7 @@ public class GrabbableObject : MonoBehaviour
     private SpriteRenderer _renderer;
     private Material _mat;
     private BoxCollider2D _collider;
+    private bool HasCreatedRigidbody;
 
     private void Start()
     {
@@ -38,9 +39,15 @@ public class GrabbableObject : MonoBehaviour
         _renderer.sortingOrder = 11;
         _mat.SetInt("_Enabled", 1);
 
-        Rigidbody2D rb = transform.AddComponent<Rigidbody2D>();
-        rb.gravityScale = 0.0f;
-        rb.excludeLayers = LayerMask.GetMask("Ignore Raycast");
+        Rigidbody2D rb;
+        if (!transform.TryGetComponent(out rb))
+        {
+            rb = transform.AddComponent<Rigidbody2D>();
+            HasCreatedRigidbody = true;
+            rb.gravityScale = 0.0f;
+        }
+        
+        rb.excludeLayers = LayerMask.GetMask("Ignore Raycast");   
         
         DeactivateChildrenCollision();
         if (_shadow.TryGetComponent(out SpriteRenderer renderer))
@@ -56,7 +63,8 @@ public class GrabbableObject : MonoBehaviour
 
     public void EndDrag()
     {
-        Destroy(GetComponent<Rigidbody2D>());
+        if (HasCreatedRigidbody)
+            Destroy(GetComponent<Rigidbody2D>());
         _collider.size *= 1.5f;
         ActivateChildrenCollision();
         _mat.SetInt("_Enabled", 0);

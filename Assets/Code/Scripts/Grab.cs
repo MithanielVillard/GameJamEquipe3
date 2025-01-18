@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,10 +21,8 @@ public class Grab : MonoBehaviour
         if (enterCollision)
         {
             transform.position = objectP.transform.position;
-
-
             rb.velocity = objectP.GetComponent<Rigidbody2D>().velocity;
-
+            GetComponent<PolygonCollider2D>().enabled = false;
         }
     }
 
