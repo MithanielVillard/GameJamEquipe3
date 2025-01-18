@@ -13,9 +13,6 @@ public class Crochet : MonoBehaviour
 
     void Update()
     {
-        //Quaternion rotation = Quaternion.FromToRotation(transform.parent.GetComponent<Cable>().distance, transform.right);
-        //Vector3 euler = rotation.eulerAngles;
-        //transform.rotation = rotation;
         var cable = transform.parent.GetComponent<Cable>();
         transform.up = cable.distance.normalized;
 
