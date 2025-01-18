@@ -63,7 +63,7 @@ Material:
     m_Floats:
     - _Amounts: 5
     - _EnableExternalAlpha: 0
-    - _Enabled: 1
+    - _Enabled: 0
     - _Opacity: 0.8
     - _QueueControl: 0
     - _QueueOffset: 0

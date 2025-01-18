@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3849506615702483694}
   - component: {fileID: 5851783509971132829}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Side
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 4284901580465704692}
   - component: {fileID: 5867638586016212919}
   - component: {fileID: 3931988834135105419}
+  - component: {fileID: 5066677582859751615}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -188,7 +189,7 @@ Transform:
   m_GameObject: {fileID: 4872171403941745372}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.65, y: 0.57, z: 0}
+  m_LocalPosition: {x: -5.18, y: 0.57, z: 0}
   m_LocalScale: {x: 0.21, y: 0.21, z: 0.21}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -212,8 +213,9 @@ MonoBehaviour:
   isSelectable: 0
   shadowOffset: {x: -0.1, y: -3}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.79607844}
-  <minBound>k__BackingField: {x: -500, y: 0}
-  <maxBound>k__BackingField: {x: 423.4, y: 500}
+  <UseBound>k__BackingField: 0
+  <MinBound>k__BackingField: {x: 0, y: 0}
+  <MaxBound>k__BackingField: {x: 0, y: 0}
 --- !u!61 &3931988834135105419
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -229,7 +231,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -243,10 +245,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.081474304, y: -0.01903677}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -257,8 +259,35 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 32.09, y: 9.55}
+  m_Size: {x: 31.145302, y: 9.045804}
   m_EdgeRadius: 0
+--- !u!50 &5066677582859751615
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4872171403941745372}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8279672484591084529
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2943456410054791949}
   - component: {fileID: 5617203348267261387}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Top
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -306,7 +335,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
