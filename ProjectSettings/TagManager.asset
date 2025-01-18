@@ -12,6 +12,8 @@ TagManager:
   - Far
   - Sky
   - Movable
+  - Undefined
+  - Grue
   layers:
   - Default
   - TransparentFX
