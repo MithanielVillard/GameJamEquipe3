@@ -10,8 +10,8 @@ TagManager:
   - Death
   - Effect
   - Far
-  - Sky
   - Movable
+  - SuicidePoint
   layers:
   - Default
   - TransparentFX

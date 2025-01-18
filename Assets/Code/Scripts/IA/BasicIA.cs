@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,6 +12,7 @@ public class BasicIA : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float jumpTime;
     [SerializeField] private float jumpProgress;
+    [SerializeField] private bool canJump;
     [SerializeField] private float fallStartY;
     [SerializeField] private bool hasStartedFall;
     
@@ -23,7 +23,11 @@ public class BasicIA : MonoBehaviour
     
     [Header("Points of Interest")]
     [SerializeReference] public List<Effect> _Effects;
-    [SerializeField] private Transform start;
+    [SerializeField] private SuicidePoint nearestSuicidePoint;
+    [SerializeField] private Transform levelStart; 
+    [SerializeField] private Transform levelEnd;
+    
+    [Header("Other parameters")]
     [SerializeField] private TextMeshProUGUI winText;
     public Transform destination;
     
@@ -34,14 +38,18 @@ public class BasicIA : MonoBehaviour
 
     [SerializeField] private float respawnTime;
     [SerializeField] private float respawnProgress;
+
+    private float _yMaxColliderPoint;
     
     void Start()
     {
 
         jumpProgress = 0;
+        canJump = true;
 
         _stateMachine = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        _yMaxColliderPoint = GetComponent<SpriteRenderer>().bounds.max.y;
         
         _Effects.Add(new Effect());
 
@@ -66,11 +74,25 @@ public class BasicIA : MonoBehaviour
         }
         
         // Apply an effect on the IA
-        _Effects[0].Update(this);
-        if (_Effects[0].IsEnd)
+
+
+        for (int i = 0; i < _Effects.Count; i++)
         {
-            _Effects[0].Reset();
-            _Effects[0] = new Effect();
+            _Effects[i].Update(this);
+            if (_Effects[i].IsEnd)
+            {
+                _Effects[i].Reset();
+                _Effects.Remove(_Effects[i]);
+                i--;
+            }
+        }
+
+        if (!destination && nearestSuicidePoint)
+        {
+            destination = nearestSuicidePoint.transform;
+        } else if (!destination)
+        {
+            destination = levelEnd;
         }
 
         _direction = new Vector2(destination.position.x - transform.position.x, destination.position.y - transform.position.y);
@@ -90,34 +112,83 @@ public class BasicIA : MonoBehaviour
             respawnProgress += Time.deltaTime;
             winText.text = "Gros noob";
             winText.enabled = true;
+            _direction = new Vector2();
             if (respawnProgress > respawnTime)
             {
                 winText.enabled = false;
                 _stateMachine.SetTrigger("OnRevive");
-                transform.position = start.position;
+                transform.position = levelStart.position;
+            }
+            return;
+        }
+
+        if (lWallSensor.isCollided && _movementX < 0)
+        {
+            float maxY = lWallSensor.GetMaximumPoint();
+            Debug.Log(maxY);
+            Debug.Log(_yMaxColliderPoint + transform.position.y + jumpForce/2);
+            if (_yMaxColliderPoint + transform.position.y < maxY)
+            {
+                if (nearestSuicidePoint) 
+                    Destroy(nearestSuicidePoint.gameObject);
+                nearestSuicidePoint = null;
+            }
+            else if (canJump)
+            {
+                _stateMachine.SetBool("IsJumping", true);
             }
         }
-        
-        if (lWallSensor.isCollided && _movementX < 0)
-            _stateMachine.SetBool("IsJumping", true);
+
         if (rWallSensor.isCollided && _movementX > 0)
-            _stateMachine.SetBool("IsJumping", true);
+        {
+            float maxY = lWallSensor.GetMaximumPoint();
+            if (_yMaxColliderPoint + transform.position.y < maxY)
+            {
+                if (nearestSuicidePoint) 
+                    Destroy(nearestSuicidePoint.gameObject);
+                nearestSuicidePoint = null;
+            }
+            else if (canJump)
+            {
+                _stateMachine.SetBool("IsJumping", true);
+            }
+        }
 
     }
 
     private void FixedUpdate()
     {
         AnimatorStateInfo movementStateMachine = _stateMachine.GetCurrentAnimatorStateInfo(0);
-        _movementX = Time.fixedDeltaTime * _direction.x * speed * _Effects[0].speedModifier * Convert.ToInt32(!_Effects[0].lockWalking);
-        float jump = jumpForce * (1 - jumpProgress/jumpTime) * _Effects[0].jumpModifier;
 
-        _rigidbody.gravityScale = _Effects[0].gravityScale;
+        // Use to accumulate all collected effects
+        float jumpBoost = 1;
+        float speedBoost = 1;
+        float gravityScale = 1;
+        int forceForward = 0;
+        
+        foreach (var effect in _Effects)
+        {
+            jumpBoost *= effect.jumpModifier;
+            speedBoost *= effect.speedModifier;
+            gravityScale *= effect.gravityScale;
+            forceForward = effect.forceDirection;
+        }
+
+        if (forceForward != 0)
+            _direction.x = forceForward;
+        
+        // Calculate IA movement
+        _movementX = Time.fixedDeltaTime * _direction.x * speed * speedBoost;
+        float jump = jumpForce * (1 - jumpProgress/jumpTime) * jumpBoost;
+        
+        _rigidbody.gravityScale = gravityScale;
         if (movementStateMachine.IsName("Walk"))
         {
             _rigidbody.velocity = new Vector2(_movementX, _rigidbody.velocity.y);
         } else if (movementStateMachine.IsName("Jump"))
         {
             jumpProgress += Time.deltaTime;
+            canJump = false;
             if (jumpProgress >= jumpTime)
             {
                 _stateMachine.SetBool("IsJumping", false);
@@ -137,8 +208,13 @@ public class BasicIA : MonoBehaviour
         {
             float fallLenght = fallStartY - transform.position.y;
             if (fallLenght > 10)
-                Debug.Log("Degat de chute pour " + fallLenght);
+            {
+                Die();
+                Debug.Log("Mry");
+            }
+
             hasStartedFall = false;
+            canJump = true;
         }
     }
 
@@ -152,14 +228,28 @@ public class BasicIA : MonoBehaviour
                 break;
             case "Death":
                 respawnProgress = 0;
-                _stateMachine.SetTrigger("OnDeath");
+                Die();
+                break;
+            case "SuicidePoint":
+                Debug.Log("Feur");
+                nearestSuicidePoint = other.GetComponent<SuicidePoint>();
                 break;
             case "Effect":
             case "Far":
-                Debug.Log("Pickuped");
-                _Effects[0] = other.GetComponent<PickupableEffect>().AttachedEffect;
+                Effect atchEffect = other.GetComponent<PickupableEffect>().AttachedEffect;
+                if (atchEffect.Use())
+                {
+                    Debug.Log("Pickuped");
+                    _Effects.Add(atchEffect);
+                }
                 break;
                 
         }
+    }
+
+    public void Die()
+    {
+        Debug.Log("MORT");
+        _stateMachine.SetTrigger("OnDeath");
     }
 }

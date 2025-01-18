@@ -4,22 +4,30 @@ using UnityEngine;
 [Serializable]
 public class Effect
 {
-    [Header("Duration")]
+    [Header("Duration")] 
+    public int usageLeft = 1;
     public float effectTime = 1.0f;
     public float effectProgression = 1.0f;
     
     [Header("Movement")]
     public float speedModifier = 1.0f;
     public float jumpModifier = 1.0f;
-    public int priority = 0;
-    public Transform destination;
-    public bool lockWalking = false;
+    public int forceDirection;
 
     [Header("Physics")] 
     public float gravityScale = 1.0f;
+    public bool kill;
 
     public bool IsEnd { get; private set; }
 
+    public bool Use()
+    {
+        if (usageLeft == -1) return true;
+        if (usageLeft == 0) return false;
+        usageLeft -= 1;
+        return true;
+    }
+    
     public void Reset()
     {
         effectProgression = 0;
@@ -28,8 +36,8 @@ public class Effect
 
     public void Update(BasicIA ia)
     {
-        if (destination)
-            ia.destination = destination;
+        if (kill)
+            ia.Die();
         if (effectProgression >= effectTime)
             IsEnd = true;
         effectProgression += Time.deltaTime;
