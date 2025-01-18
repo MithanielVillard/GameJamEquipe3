@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e4683880117bb40bf96a253db55efe, type: 3}
   m_Name: HierarchyData
   m_EditorClassIdentifier: 
-  enabled: 1
+  enabled: 0
   updateInPlayMode: 1
   drawActivationToggle: 1
   icons:
@@ -28,7 +28,7 @@ MonoBehaviour:
   separator:
     enabled: 1
     startString: '>'
-    color: {r: 0, g: 1, b: 1, a: 0.15}
+    color: {r: 0, g: 1, b: 0.47404814, a: 0.15}
   tree:
     enabled: 1
     drawOverlayOnColoredPrefabs: 1
