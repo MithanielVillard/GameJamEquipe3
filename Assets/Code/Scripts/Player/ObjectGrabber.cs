@@ -41,11 +41,16 @@ public class ObjectGrabber : MonoBehaviour
     
     public void OnMousePressed()
     {
-        if (GrabbableObject.CurrentObject == null) return;
-        _DraggingObject = GrabbableObject.CurrentObject;
-        _offset = _DraggingObject.transform.position - _camera.ScreenToWorldPoint(Input.mousePosition);
-        _offset.y += grabOffset;
-        _DraggingObject.BeginDrag();
+        RaycastHit2D hit = Physics2D.Raycast(_camera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+        if(hit.collider != null)
+        {
+            print(hit.collider.transform.name);
+            _DraggingObject = hit.collider.GetComponent<GrabbableObject>();
+            _offset = _DraggingObject.transform.position - _camera.ScreenToWorldPoint(Input.mousePosition);
+            _offset.y += grabOffset;
+            _DraggingObject.BeginDrag();
+        }
     }
 
     public void OnMouseReleased()
