@@ -6,7 +6,7 @@
             "id": "9720a9c1-e18e-4a4d-89d2-8db5a9a10991",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "MouseDown",
                     "type": "Button",
                     "id": "6ccc1154-524a-4929-979b-e353ca41cb77",
                     "expectedControlType": "Button",
@@ -19,11 +19,11 @@
                 {
                     "name": "",
                     "id": "316b39f0-2e00-4e34-b083-ab953c91c6ad",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "MouseDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
