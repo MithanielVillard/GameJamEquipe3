@@ -35,6 +35,7 @@ public class BasicIA : MonoBehaviour
     [SerializeField] private float _movementX;
     [SerializeField] private float respawnTime;
     [SerializeField] private float respawnProgress;
+    [SerializeField] private float startAnimationProgress;
     [SerializeField] private AudioManager audioManager;
     
     private int _life;
@@ -64,7 +65,9 @@ public class BasicIA : MonoBehaviour
     
     void Update()
     {
-
+        startAnimationProgress += Time.deltaTime;
+        if (startAnimationProgress < 5f) return;
+        _stateMachine.SetBool("IsStart", false);
         // Update the state machine with current detected attribute 
         if (groundSensor.isCollided)
         {
@@ -165,6 +168,7 @@ public class BasicIA : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (startAnimationProgress < 5f) return;
         AnimatorStateInfo movementStateMachine = _stateMachine.GetCurrentAnimatorStateInfo(0);
 
         // Use to accumulate all collected effects
