@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8934154804538774957}
   - component: {fileID: 7168451154860792754}
   - component: {fileID: 8908276706022499283}
+  - component: {fileID: 2340877656405214576}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -121,7 +122,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lock: {fileID: 7095991789146321288, guid: 5af55d98bfffd264a941fb9696d6c946, type: 3}
+  _audioManager: {fileID: 0}
   grabOffset: 0.5
-  ClickedCallBack:
-    m_PersistentCalls:
-      m_Calls: []
+--- !u!114 &2340877656405214576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6401672628572632322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12cacad4af479f442a90e18bd4bd1df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOver: {fileID: 6248488435414529017, guid: cbd88b05c6d828b4886d7e43b2e5cce4, type: 3}
