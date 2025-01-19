@@ -359,11 +359,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8910fb1da9d50f44682ca93e04d3d73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followPlayer: 0
   startCamera: {fileID: 205566566678419863}
   endCamera: {fileID: 6840471826770643998}
   debugCamera: {fileID: 8143164961896959291}
   followCamera: {fileID: 2854364151052788242}
-  followPlayer: 0
 --- !u!1 &6335475569545702270
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,4 +734,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af3e5d932ba42724082e14975a5f044b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IA: {fileID: 0}
