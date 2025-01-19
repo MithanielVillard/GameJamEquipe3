@@ -23,7 +23,7 @@ public class BasicIA : MonoBehaviour
     [SerializeField] private Sensor rWallSensor;
     
     [Header("Points of Interest")]
-    [SerializeReference] public List<Effect> _Effects;
+    [SerializeField] public List<Effect> _Effects;
     [SerializeField] private SuicidePoint nearestSuicidePoint;
     [SerializeField] private Transform levelStart; 
     [SerializeField] private Transform levelEnd;
@@ -35,6 +35,7 @@ public class BasicIA : MonoBehaviour
     [SerializeField] private float _movementX;
     [SerializeField] private float respawnTime;
     [SerializeField] private float respawnProgress;
+    [SerializeField] private AudioManager audioManager;
     
     private int _life;
     public Transform destination;
@@ -83,10 +84,12 @@ public class BasicIA : MonoBehaviour
         for (int i = 0; i < _Effects.Count; i++)
         {
             _Effects[i].Update(this);
+            print(_Effects[i].effectTime);
             if (_Effects[i].IsEnd)
             {
                 _Effects[i].Reset();
-                _Effects.Remove(_Effects[i]);
+                _Effects.RemoveAt(i);
+                print(i);
                 i--;
             }
         }
@@ -140,6 +143,7 @@ public class BasicIA : MonoBehaviour
             else if (canJump)
             {
                 _stateMachine.SetBool("IsJumping", true);
+                audioManager.Play("Jump");
             }
         }
 
@@ -205,6 +209,7 @@ public class BasicIA : MonoBehaviour
         {
             if (!hasStartedFall)
             {
+                audioManager.Play("Fall");
                 groundedOnBin = false;
                 fallStartY = transform.position.y;
                 hasStartedFall = true;
@@ -219,10 +224,12 @@ public class BasicIA : MonoBehaviour
             float fallLenght = fallStartY - transform.position.y;
             if (fallLenght > 10 && !groundedOnBin)
             {
+                audioManager.Play("Damage");
                 Die();
             }
             else if (fallLenght > 10 && groundedOnBin)
             {
+                audioManager.Play("Damage");
                 _life--;
                 if (_life == 1)
                 {

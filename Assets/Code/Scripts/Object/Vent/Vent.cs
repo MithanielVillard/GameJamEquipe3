@@ -21,11 +21,11 @@ public class Vent : MonoBehaviour
         float posOffset = 0;
         if (otherVent.transform.position.x > gameObject.transform.position.x)
         {
-            posOffset += 2;
+            posOffset += 1;
         }
         else
         {
-            posOffset -= 2;
+            posOffset -= 1;
         }
         player.transform.position = otherVent.transform.position + new Vector3(posOffset, 1);
         audio.Play("VentOut");
@@ -37,6 +37,8 @@ public class Vent : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             player = collision;
+            collision.gameObject.GetComponent<Animator>().SetBool("IsJumping", true);
+            collision.gameObject.GetComponent<Animator>().SetTrigger("OnWall");
             vented = true;
             audio.Play("VentIn");
         }

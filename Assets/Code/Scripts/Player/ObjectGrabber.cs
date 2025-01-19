@@ -5,6 +5,7 @@ public class ObjectGrabber : MonoBehaviour
 {
 
     [SerializeField] private Lock _lock;
+    [SerializeField] private AudioManager _audioManager;
     [SerializeField, Header("Stats")]
     private float grabOffset = 0.5f;
     
@@ -59,6 +60,7 @@ public class ObjectGrabber : MonoBehaviour
             _offset = _startPos - _camera.ScreenToWorldPoint(Input.mousePosition);
             _offset.y += grabOffset;
             _DraggingObject.BeginDrag();
+            _audioManager.Play("PopIn");
         }
     }
 
@@ -80,5 +82,6 @@ public class ObjectGrabber : MonoBehaviour
         _DraggingObject.transform.position = pos;
         _DraggingObject.EndDrag();
         _DraggingObject = null;
+        _audioManager.Play("PopOut");
     }
 }
