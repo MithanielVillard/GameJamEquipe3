@@ -15,6 +15,7 @@ public class FollowPlayer : MonoBehaviour
     {
         Vector3 playerPosition = IA.transform.position;
         playerPosition.y = Mathf.Max(playerPosition.y, 0);
+        playerPosition.x = Mathf.Clamp(playerPosition.x, -10f, 185f);
         playerPosition.z = transform.position.z;
         transform.position = playerPosition;
     }
