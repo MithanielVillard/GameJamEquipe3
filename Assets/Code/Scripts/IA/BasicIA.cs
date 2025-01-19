@@ -126,8 +126,6 @@ public class BasicIA : MonoBehaviour
         if (lWallSensor.isCollided && _movementX < 0)
         {
             float maxY = lWallSensor.GetMaximumPoint();
-            Debug.Log(maxY);
-            Debug.Log(_yMaxColliderPoint + transform.position.y + jumpForce/2);
             if (_yMaxColliderPoint + transform.position.y < maxY)
             {
                 if (nearestSuicidePoint) 

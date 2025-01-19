@@ -46,7 +46,7 @@ public class GrabbableObject : MonoBehaviour
             rb.gravityScale = 0.0f;
         }
         
-        rb.excludeLayers = LayerMask.GetMask("Ignore Raycast");   
+        rb.excludeLayers = LayerMask.GetMask("Ignore Raycast", "Player");   
         
         DeactivateChildrenCollision();
         if (_shadow.TryGetComponent(out SpriteRenderer renderer))
@@ -62,8 +62,7 @@ public class GrabbableObject : MonoBehaviour
 
     public void EndDrag()
     {
-        if (HasCreatedRigidbody)
-            Destroy(GetComponent<Rigidbody2D>());
+        if (HasCreatedRigidbody) Destroy(GetComponent<Rigidbody2D>());
         _collider.size *= 1.5f;
         ActivateChildrenCollision();
         _mat.SetInt("_Enabled", 0);
@@ -73,7 +72,8 @@ public class GrabbableObject : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        _mat.SetColor("_Color", Color.red);
+        if (!other.TryGetComponent(out BasicIA ia))
+            _mat.SetColor("_Color", Color.red);
         BehindObject = other.gameObject;
     }
     
