@@ -20,11 +20,21 @@ public class Effect
     public float gravityScale = 1.0f;
     public bool kill;
 
-    public bool IsEnd { get; private set; }
+    public bool IsEnd = false;
+    public bool IsStarted = false;
     
 
     public bool Use()
     {
+        if (!IsStarted && usageLeft == -1)
+        {
+            IsStarted = true;
+            return true;
+        }
+        if (!IsEnd && usageLeft == -1)
+        {
+            return false;
+        }
         if (usageLeft == -1) return true;
         if (usageLeft == 0) return false;
         usageLeft -= 1;
