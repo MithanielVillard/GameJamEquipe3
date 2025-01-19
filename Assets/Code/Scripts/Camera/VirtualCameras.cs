@@ -14,11 +14,13 @@ public class VirtualCamera : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera endCamera;
     [SerializeField] private CinemachineVirtualCamera debugCamera;
     [SerializeField] private CinemachineVirtualCamera followCamera;
+    [SerializeField] private AudioManager audioManager;
     
     private float progress;
 
     private void Start()
     {
+        audioManager.Play("Walk");
         debugCamera.Priority = 0;
         if (followPlayer)
         {
@@ -27,6 +29,7 @@ public class VirtualCamera : MonoBehaviour
             return;
         }
         startCamera.Priority = 1;
+        followCamera.GetComponent<FollowPlayer>().enabled = false;
     }
     
     private void Update()
