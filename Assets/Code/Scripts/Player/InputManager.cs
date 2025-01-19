@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,7 +11,7 @@ public class InputManager : MonoBehaviour
     private void Start()
     {
         _grabber = GetComponent<ObjectGrabber>();
-        _grab = GetComponentInParent<Grab>();
+        _grab = GameObject.FindWithTag("Player").GetComponentInParent<Grab>();
     }
     
     public void OnMousePressed(InputAction.CallbackContext ctx)
@@ -30,8 +31,17 @@ public class InputManager : MonoBehaviour
                 if (_grab.enterCollision)
                 {
                     _grab.enterCollision = false;
+                    
+                    StartCoroutine(ReleaseAfter(0.2f));
                 }
             }
         }
     }
+
+    IEnumerator ReleaseAfter(float duration)
+    {
+        yield return new WaitForSecondsRealtime(duration);
+        _grab.GetComponent<BoxCollider2D>().enabled = true;
+    }
+
 }

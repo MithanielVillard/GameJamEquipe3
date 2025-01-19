@@ -1,17 +1,20 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class ObjectGrabber : MonoBehaviour
 {
 
+    [SerializeField] private Lock _lock;
     [SerializeField, Header("Stats")]
     private float grabOffset = 0.5f;
+
+    [SerializeField] private UnityEvent<GrabbableObject> ClickedCallBack;
     
     private GrabbableObject _DraggingObject;
     private Camera _camera;
-
     private Vector3 _offset;
+    private Vector3 _startPos;
     
     void Start()
     {
@@ -25,8 +28,11 @@ public class ObjectGrabber : MonoBehaviour
             var pos =_camera.ScreenToWorldPoint(Input.mousePosition) + _offset;
             pos.z = 0;
 
-            pos.x = Mathf.Clamp(pos.x, _DraggingObject.minBound.x, _DraggingObject.maxBound.x);
-            pos.y = Mathf.Clamp(pos.y, _DraggingObject.minBound.y, _DraggingObject.maxBound.y);
+            if (_DraggingObject.UseBound)
+            {
+                pos.x = Mathf.Clamp(pos.x, _DraggingObject.MinBound.x, _DraggingObject.MaxBound.x);
+                pos.y = Mathf.Clamp(pos.y, _DraggingObject.MinBound.y, _DraggingObject.MaxBound.y);
+            }
             
             var distance = pos - _DraggingObject.transform.position;
             var rot = _DraggingObject.transform.rotation.eulerAngles;
@@ -45,19 +51,36 @@ public class ObjectGrabber : MonoBehaviour
 
         if(hit.collider != null)
         {
-            print(hit.collider.transform.name);
+            if (hit.collider.CompareTag("Ground"))
+            {
+                var l = Instantiate(_lock);
+                l.transform.position = hit.transform.position;
+                return;
+            }
             _DraggingObject = hit.collider.GetComponent<GrabbableObject>();
-            _offset = _DraggingObject.transform.position - _camera.ScreenToWorldPoint(Input.mousePosition);
+            _startPos = _DraggingObject.transform.position;
+            _offset = _startPos - _camera.ScreenToWorldPoint(Input.mousePosition);
             _offset.y += grabOffset;
             _DraggingObject.BeginDrag();
+            ClickedCallBack.Invoke(_DraggingObject);
         }
     }
 
     public void OnMouseReleased()
     {
+        
         if (_DraggingObject == null) return;
+        if (_DraggingObject.BehindObject != null)
+        {
+            if (_DraggingObject.BehindObject.TryGetComponent(out BasicIA ia))
+            {
+                ia.Die();
+            }
+            _DraggingObject.transform.DOMove(_startPos, 0.5f).SetEase(Ease.InOutExpo);
+        }
+        
         var pos = _DraggingObject.transform.position;
-        //pos.y -= grabOffset;
+        pos.y -= grabOffset;
         _DraggingObject.transform.position = pos;
         _DraggingObject.EndDrag();
         _DraggingObject = null;

@@ -10,10 +10,11 @@ TagManager:
   - Death
   - Effect
   - Far
-  - Sky
   - Movable
-  - Undefined
+  - SuicidePoint
   - Grue
+  - Trampo
+  - Benne
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - UI
   - FarDetection
   - Near
-  - 
+  - Player
   - 
   - 
   - 
