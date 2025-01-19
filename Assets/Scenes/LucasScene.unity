@@ -4941,7 +4941,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1367536279295533581, guid: 88565ccde654c794a891e23599fbe799, type: 3}
       propertyPath: m_Distance
-      value: 2.23
+      value: 2.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367536279295533581, guid: 88565ccde654c794a891e23599fbe799, type: 3}
+      propertyPath: m_Frequency
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367536279295533581, guid: 88565ccde654c794a891e23599fbe799, type: 3}
+      propertyPath: m_BreakForce
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367536279295533581, guid: 88565ccde654c794a891e23599fbe799, type: 3}
+      propertyPath: m_BreakAction
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367536279295533581, guid: 88565ccde654c794a891e23599fbe799, type: 3}
+      propertyPath: m_DampingRatio
+      value: 0.98
       objectReference: {fileID: 0}
     - target: {fileID: 2919339570033311221, guid: 88565ccde654c794a891e23599fbe799, type: 3}
       propertyPath: m_LocalScale.x
