@@ -46,7 +46,7 @@ public class GrabbableObject : MonoBehaviour
             rb.gravityScale = 0.0f;
         }
         
-        rb.excludeLayers = LayerMask.GetMask("Ignore Raycast", "Player");   
+        rb.excludeLayers = LayerMask.GetMask("Ignore Raycast");   
         
         DeactivateChildrenCollision();
         if (_shadow.TryGetComponent(out SpriteRenderer renderer))

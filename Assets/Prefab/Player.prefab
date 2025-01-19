@@ -120,4 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32722b08d7da0fd488211f909780e67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lock: {fileID: 7095991789146321288, guid: 5af55d98bfffd264a941fb9696d6c946, type: 3}
   grabOffset: 0.5
+  ClickedCallBack:
+    m_PersistentCalls:
+      m_Calls: []

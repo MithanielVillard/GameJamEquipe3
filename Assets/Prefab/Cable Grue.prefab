@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2660591486011265557}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.31, y: 1.36, z: 0}
+  m_LocalPosition: {x: -1.64, y: 3.46, z: 0}
   m_LocalScale: {x: 0.2487, y: 0.2487, z: 0.2487}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6696, y: 0.37861174}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -252,7 +252,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -271,16 +271,16 @@ SpringJoint2D:
   serializedVersion: 4
   m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 668889407210223390}
-  m_BreakForce: Infinity
+  m_BreakForce: 200
   m_BreakTorque: Infinity
-  m_BreakAction: 2
+  m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 0
-  m_Distance: 1
-  m_DampingRatio: 0.3
-  m_Frequency: 1
+  m_Distance: 2.28
+  m_DampingRatio: 0.98
+  m_Frequency: 1.1
 --- !u!114 &9030627591806895223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,10 +305,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -325,7 +325,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.010045171}
+  m_Offset: {x: -0.05938101, y: -0.15622115}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -336,7 +336,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.69, y: 1.1499095}
+  m_Size: {x: 4.276601, y: 6.232908}
   m_EdgeRadius: 0
 --- !u!114 &4327345382065562680
 MonoBehaviour:
@@ -350,7 +350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54481061864e2804fb153dde16229d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSelectable: 0
   shadowOffset: {x: 1, y: 1}
   shadowColor: {r: 0, g: 0, b: 0, a: 0}
   <UseBound>k__BackingField: 0
@@ -384,8 +383,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.564873, y: 2.7091172, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6590814187940052847}
   - {fileID: 2150113339988662675}

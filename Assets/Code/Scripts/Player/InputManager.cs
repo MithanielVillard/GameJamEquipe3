@@ -25,7 +25,6 @@ public class InputManager : MonoBehaviour
 
     public void OnFPressed(InputAction.CallbackContext ctx)
     {
-        Debug.Log("NTM");
         if (ctx.started)
         {
             {
@@ -33,7 +32,7 @@ public class InputManager : MonoBehaviour
                 {
                     _grab.enterCollision = false;
                     
-                    StartCoroutine(ReleaseAfter(1));
+                    StartCoroutine(ReleaseAfter(0.2f));
                 }
             }
         }
@@ -42,7 +41,7 @@ public class InputManager : MonoBehaviour
     IEnumerator ReleaseAfter(float duration)
     {
         yield return new WaitForSecondsRealtime(duration);
-        _grab.GetComponent<PolygonCollider2D>().enabled = true;
+        _grab.GetComponent<BoxCollider2D>().enabled = true;
     }
 
 }

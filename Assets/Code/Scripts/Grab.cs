@@ -22,7 +22,7 @@ public class Grab : MonoBehaviour
         {
             transform.position = objectP.transform.position;
             rb.velocity = objectP.GetComponent<Rigidbody2D>().velocity;
-            GetComponent<PolygonCollider2D>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 

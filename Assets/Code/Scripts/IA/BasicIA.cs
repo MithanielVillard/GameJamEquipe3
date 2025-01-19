@@ -29,6 +29,7 @@ public class BasicIA : MonoBehaviour
     [SerializeField] private Transform levelEnd;
     
     [Header("Other parameters")]
+    [SerializeField] private SpriteRenderer renderer;
     [SerializeField] private TextMeshProUGUI winText;
     public Transform destination;
     
@@ -47,6 +48,8 @@ public class BasicIA : MonoBehaviour
 
         jumpProgress = 0;
         canJump = true;
+
+        renderer = GetComponent<SpriteRenderer>();
 
         _stateMachine = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -100,10 +103,12 @@ public class BasicIA : MonoBehaviour
         Vector3.Normalize(_direction);
         if (_direction.x < 0)
         {
+            renderer.flipX = true;
             _direction.x = -1;
         } 
         if (_direction.x > 0)
         {
+            renderer.flipX = false;
             _direction.x = 1;
         } 
         
@@ -259,6 +264,7 @@ public class BasicIA : MonoBehaviour
 
     public void Die()
     {
+        respawnProgress = 0;
         _stateMachine.SetTrigger("OnDeath");
     }
 }
