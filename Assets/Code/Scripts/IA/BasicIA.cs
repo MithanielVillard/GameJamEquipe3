@@ -214,7 +214,7 @@ public class BasicIA : MonoBehaviour
         } else if (!movementStateMachine.IsName("Fall") && hasStartedFall)
         {
             float fallLenght = fallStartY - transform.position.y;
-            if (fallLenght > 15 && !groundedOnBin)
+            if (fallLenght > 10 && !groundedOnBin)
             {
                 Die();
             }

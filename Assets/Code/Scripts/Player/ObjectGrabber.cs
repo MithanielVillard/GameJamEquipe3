@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class ObjectGrabber : MonoBehaviour
@@ -8,6 +9,11 @@ public class ObjectGrabber : MonoBehaviour
     [SerializeField] private Lock _lock;
     [SerializeField, Header("Stats")]
     private float grabOffset = 0.5f;
+    
+    public delegate void ClickedCallback(GrabbableObject obj);
+    public ClickedCallback ClickedCallbackAction { get; set; }
+    
+    
     
     private GrabbableObject _DraggingObject;
     private Camera _camera;
@@ -60,18 +66,19 @@ public class ObjectGrabber : MonoBehaviour
             _offset = _startPos - _camera.ScreenToWorldPoint(Input.mousePosition);
             _offset.y += grabOffset;
             _DraggingObject.BeginDrag();
-            
+            ClickedCallbackAction(_DraggingObject);
         }
     }
 
     public void OnMouseReleased()
     {
+        
         if (_DraggingObject == null) return;
         if (_DraggingObject.BehindObject != null)
         {
             if (_DraggingObject.BehindObject.TryGetComponent(out BasicIA ia))
             {
-                //ia.di
+                ia.Die();
             }
             _DraggingObject.transform.DOMove(_startPos, 0.5f).SetEase(Ease.InOutExpo);
         }
