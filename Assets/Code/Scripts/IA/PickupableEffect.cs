@@ -1,9 +1,11 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 [Serializable]
 public class Effect
 {
+    
     [Header("Duration")] 
     public int usageLeft = 1;
     public float effectTime = 1.0f;
@@ -19,6 +21,7 @@ public class Effect
     public bool kill;
 
     public bool IsEnd { get; private set; }
+    
 
     public bool Use()
     {
@@ -48,5 +51,4 @@ public class PickupableEffect : MonoBehaviour
 {
     
     public Effect AttachedEffect;
-
 }

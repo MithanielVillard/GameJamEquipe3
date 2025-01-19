@@ -1,12 +1,15 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class ObjectGrabber : MonoBehaviour
 {
 
+    [SerializeField] private Lock _lock;
     [SerializeField, Header("Stats")]
     private float grabOffset = 0.5f;
+
+    [SerializeField] private UnityEvent<GrabbableObject> ClickedCallBack;
     
     private GrabbableObject _DraggingObject;
     private Camera _camera;
@@ -48,22 +51,30 @@ public class ObjectGrabber : MonoBehaviour
 
         if(hit.collider != null)
         {
+            if (hit.collider.CompareTag("Ground"))
+            {
+                var l = Instantiate(_lock);
+                l.transform.position = hit.transform.position;
+                return;
+            }
             _DraggingObject = hit.collider.GetComponent<GrabbableObject>();
             _startPos = _DraggingObject.transform.position;
             _offset = _startPos - _camera.ScreenToWorldPoint(Input.mousePosition);
             _offset.y += grabOffset;
             _DraggingObject.BeginDrag();
+            ClickedCallBack.Invoke(_DraggingObject);
         }
     }
 
     public void OnMouseReleased()
     {
+        
         if (_DraggingObject == null) return;
         if (_DraggingObject.BehindObject != null)
         {
             if (_DraggingObject.BehindObject.TryGetComponent(out BasicIA ia))
             {
-                //ia.di
+                ia.Die();
             }
             _DraggingObject.transform.DOMove(_startPos, 0.5f).SetEase(Ease.InOutExpo);
         }

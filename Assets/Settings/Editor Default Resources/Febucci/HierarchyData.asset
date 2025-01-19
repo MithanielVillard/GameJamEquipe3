@@ -28,7 +28,7 @@ MonoBehaviour:
   separator:
     enabled: 1
     startString: '>'
-    color: {r: 0, g: 1, b: 1, a: 0.15}
+    color: {r: 0, g: 1, b: 0.47404814, a: 0.15}
   tree:
     enabled: 1
     drawOverlayOnColoredPrefabs: 1

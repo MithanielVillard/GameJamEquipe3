@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3038846936774617221}
   - component: {fileID: 1637856473683591376}
   - component: {fileID: 3576611372969673641}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GroundEffect
   m_TagString: Effect
   m_Icon: {fileID: 0}
@@ -91,9 +91,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttachedEffect:
+    usageLeft: 1
     effectTime: 2
     effectProgression: 0
     speedModifier: 1
     jumpModifier: 3
-    destination: {fileID: 0}
-    lockWalking: 0
+    forceDirection: 0
+    gravityScale: 1
+    kill: 0

@@ -15,6 +15,7 @@ public class BasicIA : MonoBehaviour
     [SerializeField] private bool canJump;
     [SerializeField] private float fallStartY;
     [SerializeField] private bool hasStartedFall;
+    [SerializeField] private bool groundedOnBin;
     
     [Header("States Manager")]
     [SerializeField] private Sensor groundSensor;
@@ -26,18 +27,20 @@ public class BasicIA : MonoBehaviour
     [SerializeField] private SuicidePoint nearestSuicidePoint;
     [SerializeField] private Transform levelStart; 
     [SerializeField] private Transform levelEnd;
-    
-    [Header("Other parameters")]
+
+    [Header("Other parameters")] 
+    [SerializeField] private int maxLife;
     [SerializeField] private TextMeshProUGUI winText;
-    public Transform destination;
-    
-    private Animator _stateMachine;
-    private Rigidbody2D _rigidbody;
     [SerializeField] private Vector2 _direction;
     [SerializeField] private float _movementX;
-
     [SerializeField] private float respawnTime;
     [SerializeField] private float respawnProgress;
+    
+    private int _life;
+    public Transform destination;
+    private SpriteRenderer renderer;
+    private Animator _stateMachine;
+    private Rigidbody2D _rigidbody;
 
     private float _yMaxColliderPoint;
     
@@ -46,6 +49,9 @@ public class BasicIA : MonoBehaviour
 
         jumpProgress = 0;
         canJump = true;
+        _life = maxLife;
+
+        renderer = GetComponent<SpriteRenderer>();
 
         _stateMachine = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -74,8 +80,6 @@ public class BasicIA : MonoBehaviour
         }
         
         // Apply an effect on the IA
-
-
         for (int i = 0; i < _Effects.Count; i++)
         {
             _Effects[i].Update(this);
@@ -99,10 +103,12 @@ public class BasicIA : MonoBehaviour
         Vector3.Normalize(_direction);
         if (_direction.x < 0)
         {
+            renderer.flipX = true;
             _direction.x = -1;
         } 
         if (_direction.x > 0)
         {
+            renderer.flipX = false;
             _direction.x = 1;
         } 
         
@@ -125,8 +131,6 @@ public class BasicIA : MonoBehaviour
         if (lWallSensor.isCollided && _movementX < 0)
         {
             float maxY = lWallSensor.GetMaximumPoint();
-            Debug.Log(maxY);
-            Debug.Log(_yMaxColliderPoint + transform.position.y + jumpForce/2);
             if (_yMaxColliderPoint + transform.position.y < maxY)
             {
                 if (nearestSuicidePoint) 
@@ -201,16 +205,34 @@ public class BasicIA : MonoBehaviour
         {
             if (!hasStartedFall)
             {
+                groundedOnBin = false;
                 fallStartY = transform.position.y;
                 hasStartedFall = true;
+            }
+            else
+            {
+                if (transform.position.y > fallStartY)
+                    fallStartY = transform.position.y;
             }
         } else if (!movementStateMachine.IsName("Fall") && hasStartedFall)
         {
             float fallLenght = fallStartY - transform.position.y;
-            if (fallLenght > 10)
+            if (fallLenght > 10 && !groundedOnBin)
             {
                 Die();
-                Debug.Log("Mry");
+            }
+            else if (fallLenght > 10 && groundedOnBin)
+            {
+                _life--;
+                if (_life == 1)
+                {
+                    renderer.color = new Color(255, 0, 0);
+                } else if (_life <= 0)
+                {
+                    _life = maxLife;
+                    renderer.color = new Color(255, 255, 255);
+                    Die();
+                }
             }
 
             hasStartedFall = false;
@@ -222,6 +244,9 @@ public class BasicIA : MonoBehaviour
     {
         switch (other.gameObject.tag)
         {
+            case "Benne":
+                groundedOnBin = true;
+                break;
             case "Goal":
                 winText.enabled = true;
                 Time.timeScale = 0.1f;
@@ -231,7 +256,6 @@ public class BasicIA : MonoBehaviour
                 Die();
                 break;
             case "SuicidePoint":
-                Debug.Log("Feur");
                 nearestSuicidePoint = other.GetComponent<SuicidePoint>();
                 break;
             case "Effect":
@@ -249,7 +273,7 @@ public class BasicIA : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("MORT");
+        respawnProgress = 0;
         _stateMachine.SetTrigger("OnDeath");
     }
 }
