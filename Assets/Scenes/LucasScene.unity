@@ -994,7 +994,7 @@ GameObject:
   - component: {fileID: 349257242}
   - component: {fileID: 349257243}
   - component: {fileID: 349257244}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Building (7)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1841,9 +1841,8 @@ GameObject:
   m_Component:
   - component: {fileID: 667549593}
   - component: {fileID: 667549594}
-  - component: {fileID: 667549595}
   m_Layer: 2
-  m_Name: Banana
+  m_Name: BananaTest
   m_TagString: Effect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1916,29 +1915,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &667549595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667549592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42cee8efb1a361f46a1bbbe07300cea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttachedEffect:
-    usageLeft: -1
-    effectTime: 5
-    effectProgression: 0
-    speedModifier: 3
-    jumpModifier: 1
-    forceDirection: 1
-    gravityScale: 1
-    kill: 0
-    IsEnd: 0
-    IsStarted: 0
 --- !u!1 &676656485
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,7 +2646,7 @@ GameObject:
   - component: {fileID: 990047588}
   - component: {fileID: 990047589}
   - component: {fileID: 990047590}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Building (5)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -4694,7 +4670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3906136152118461679, guid: 13f57f0584c204448bb0837a4b19a1ca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 87.43
+      value: 91.06
       objectReference: {fileID: 0}
     - target: {fileID: 3906136152118461679, guid: 13f57f0584c204448bb0837a4b19a1ca, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7960,11 +7936,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2035380412}
+  - component: {fileID: 2035380415}
   - component: {fileID: 2035380413}
   - component: {fileID: 2035380414}
   m_Layer: 0
   m_Name: Banana
-  m_TagString: Untagged
+  m_TagString: Effect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7978,7 +7955,7 @@ Transform:
   m_GameObject: {fileID: 2035380411}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 93.37, y: 0.66, z: -0.19938725}
+  m_LocalPosition: {x: 93.37, y: 0.96, z: -0.19938725}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8050,6 +8027,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.90270305}
   m_EdgeRadius: 0
+--- !u!114 &2035380415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035380411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42cee8efb1a361f46a1bbbe07300cea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttachedEffect:
+    usageLeft: -1
+    effectTime: 0.5
+    effectProgression: 0
+    speedModifier: 3
+    jumpModifier: 1
+    forceDirection: 1
+    gravityScale: 1
+    kill: 0
+    IsEnd: 0
+    IsStarted: 0
 --- !u!1001 &2047380811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8298,7 +8298,7 @@ GameObject:
   - component: {fileID: 2141258029}
   - component: {fileID: 2141258030}
   - component: {fileID: 2141258031}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Building (8)
   m_TagString: Ground
   m_Icon: {fileID: 0}
