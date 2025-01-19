@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -73,6 +74,7 @@ public class GrabbableObject : MonoBehaviour
         _mat.SetInt("_Enabled", 0);
         transform.DOScale(transform.localScale / 1.5f, 0.3f).SetEase(Ease.OutElastic);
         Destroy(_shadow);
+        
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -98,7 +100,9 @@ public class GrabbableObject : MonoBehaviour
 
     private void ActivateChildrenCollision()
     {
-        foreach (Collider2D co in GetComponentsInChildren<Collider2D>())
+        List<Collider2D> child = new List<Collider2D>(GetComponentsInChildren<Collider2D>());
+        child.RemoveAt(0);
+        foreach (Collider2D co in child)
         {
             co.isTrigger = false;
         } 

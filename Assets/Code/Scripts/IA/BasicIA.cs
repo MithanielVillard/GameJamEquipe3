@@ -84,7 +84,6 @@ public class BasicIA : MonoBehaviour
         for (int i = 0; i < _Effects.Count; i++)
         {
             _Effects[i].Update(this);
-            print(_Effects[i].effectTime);
             if (_Effects[i].IsEnd)
             {
                 _Effects[i].Reset();
