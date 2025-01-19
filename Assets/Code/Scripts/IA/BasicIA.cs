@@ -118,12 +118,9 @@ public class BasicIA : MonoBehaviour
         if (lifeStateMachine.IsName("Dead"))
         {
             respawnProgress += Time.deltaTime;
-            winText.text = "Gros noob";
-            winText.enabled = true;
             _direction = new Vector2();
             if (respawnProgress > respawnTime)
             {
-                winText.enabled = false;
                 _stateMachine.SetTrigger("OnRevive");
                 transform.position = levelStart.position;
             }
@@ -254,7 +251,7 @@ public class BasicIA : MonoBehaviour
                 groundedOnBin = true;
                 break;
             case "Goal":
-                winText.enabled = true;
+                FindObjectOfType<Player>().OnWin();
                 Time.timeScale = 0.1f;
                 break;
             case "Death":
@@ -279,6 +276,8 @@ public class BasicIA : MonoBehaviour
 
     public void Die()
     {
+        FindObjectOfType<Player>().OnDeath();
+        gameObject.SetActive(false);
         respawnProgress = 0;
         _stateMachine.SetTrigger("OnDeath");
     }

@@ -10,7 +10,8 @@ public class GrabbableObject : MonoBehaviour
 {
     
     [SerializeField, Header("Stats")] private Vector2 shadowOffset = new Vector2(0, -3);
-    [SerializeField] private UnityEvent<GrabbableObject> clickedCallBack;
+    [SerializeField] private UnityEvent<GrabbableObject> releasedCallBack;
+    [SerializeField] private UnityEvent<GrabbableObject> startCallBack;
     [SerializeField] private Color shadowColor;
     [field:SerializeField] public bool UseBound { get; set; }
     [field:SerializeField] public Vector2 MinBound { get; set; }
@@ -37,6 +38,7 @@ public class GrabbableObject : MonoBehaviour
         transform.DOScale(transform.localScale * 1.5f, 0.3f).SetEase(Ease.OutElastic);
 
         _collider.size /= 1.5f;
+        startCallBack.Invoke(this);
         _shadow = Instantiate(_renderer.gameObject, transform, true);
         _shadow.transform.localPosition = new Vector3(shadowOffset.x, shadowOffset.y, 0f);
         _renderer.sortingOrder = 11;
@@ -67,7 +69,7 @@ public class GrabbableObject : MonoBehaviour
     public void EndDrag()
     {
         if (HasCreatedRigidbody) Destroy(GetComponent<Rigidbody2D>());
-        clickedCallBack.Invoke(this);
+        releasedCallBack.Invoke(this);
         BehindObject = null;
         _collider.size *= 1.5f;
         ActivateChildrenCollision();
