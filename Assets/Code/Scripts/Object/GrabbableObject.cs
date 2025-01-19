@@ -2,11 +2,14 @@ using System;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class GrabbableObject : MonoBehaviour
 {
     
     [SerializeField, Header("Stats")] private Vector2 shadowOffset = new Vector2(0, -3);
+    [SerializeField] private UnityEvent<GrabbableObject> clickedCallBack;
     [SerializeField] private Color shadowColor;
     [field:SerializeField] public bool UseBound { get; set; }
     [field:SerializeField] public Vector2 MinBound { get; set; }
@@ -63,6 +66,8 @@ public class GrabbableObject : MonoBehaviour
     public void EndDrag()
     {
         if (HasCreatedRigidbody) Destroy(GetComponent<Rigidbody2D>());
+        clickedCallBack.Invoke(this);
+        BehindObject = null;
         _collider.size *= 1.5f;
         ActivateChildrenCollision();
         _mat.SetInt("_Enabled", 0);
