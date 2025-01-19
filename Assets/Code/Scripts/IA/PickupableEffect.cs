@@ -1,9 +1,11 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 [Serializable]
 public class Effect
 {
+    
     [Header("Duration")] 
     public int usageLeft = 1;
     public float effectTime = 1.0f;
@@ -18,10 +20,21 @@ public class Effect
     public float gravityScale = 1.0f;
     public bool kill;
 
-    public bool IsEnd { get; private set; }
+    public bool IsEnd = false;
+    public bool IsStarted = false;
+    
 
     public bool Use()
     {
+        if (!IsStarted && usageLeft == -1)
+        {
+            IsStarted = true;
+            return true;
+        }
+        if (!IsEnd && usageLeft == -1)
+        {
+            return false;
+        }
         if (usageLeft == -1) return true;
         if (usageLeft == 0) return false;
         usageLeft -= 1;
@@ -48,5 +61,4 @@ public class PickupableEffect : MonoBehaviour
 {
     
     public Effect AttachedEffect;
-
 }

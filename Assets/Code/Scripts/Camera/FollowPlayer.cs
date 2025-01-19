@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    [SerializeField] private GameObject IA;
+    private GameObject IA;
 
-    void Update()
+    private void Start()
+    {
+        IA = GameObject.FindGameObjectsWithTag("Player")[0];
+    }
+
+    private void Update()
     {
         Vector3 playerPosition = IA.transform.position;
         playerPosition.y = Mathf.Max(playerPosition.y, 0);

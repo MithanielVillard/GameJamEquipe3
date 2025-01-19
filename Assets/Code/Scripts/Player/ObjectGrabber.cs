@@ -1,15 +1,13 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ObjectGrabber : MonoBehaviour
 {
 
     [SerializeField] private Lock _lock;
+    [SerializeField] private AudioManager _audioManager;
     [SerializeField, Header("Stats")]
     private float grabOffset = 0.5f;
-
-    [SerializeField] private UnityEvent<GrabbableObject> ClickedCallBack;
     
     private GrabbableObject _DraggingObject;
     private Camera _camera;
@@ -62,7 +60,7 @@ public class ObjectGrabber : MonoBehaviour
             _offset = _startPos - _camera.ScreenToWorldPoint(Input.mousePosition);
             _offset.y += grabOffset;
             _DraggingObject.BeginDrag();
-            ClickedCallBack.Invoke(_DraggingObject);
+            _audioManager.Play("PopIn");
         }
     }
 
@@ -84,5 +82,6 @@ public class ObjectGrabber : MonoBehaviour
         _DraggingObject.transform.position = pos;
         _DraggingObject.EndDrag();
         _DraggingObject = null;
+        _audioManager.Play("PopOut");
     }
 }

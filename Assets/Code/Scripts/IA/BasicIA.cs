@@ -23,23 +23,25 @@ public class BasicIA : MonoBehaviour
     [SerializeField] private Sensor rWallSensor;
     
     [Header("Points of Interest")]
-    [SerializeReference] public List<Effect> _Effects;
+    [SerializeField] public List<Effect> _Effects;
     [SerializeField] private SuicidePoint nearestSuicidePoint;
     [SerializeField] private Transform levelStart; 
     [SerializeField] private Transform levelEnd;
-    
-    [Header("Other parameters")]
-    [SerializeField] private SpriteRenderer renderer;
+
+    [Header("Other parameters")] 
+    [SerializeField] private int maxLife;
     [SerializeField] private TextMeshProUGUI winText;
-    public Transform destination;
-    
-    private Animator _stateMachine;
-    private Rigidbody2D _rigidbody;
     [SerializeField] private Vector2 _direction;
     [SerializeField] private float _movementX;
-
     [SerializeField] private float respawnTime;
     [SerializeField] private float respawnProgress;
+    [SerializeField] private AudioManager audioManager;
+    
+    private int _life;
+    public Transform destination;
+    private SpriteRenderer renderer;
+    private Animator _stateMachine;
+    private Rigidbody2D _rigidbody;
 
     private float _yMaxColliderPoint;
     
@@ -48,6 +50,7 @@ public class BasicIA : MonoBehaviour
 
         jumpProgress = 0;
         canJump = true;
+        _life = maxLife;
 
         renderer = GetComponent<SpriteRenderer>();
 
@@ -78,15 +81,15 @@ public class BasicIA : MonoBehaviour
         }
         
         // Apply an effect on the IA
-
-
         for (int i = 0; i < _Effects.Count; i++)
         {
             _Effects[i].Update(this);
+            print(_Effects[i].effectTime);
             if (_Effects[i].IsEnd)
             {
                 _Effects[i].Reset();
-                _Effects.Remove(_Effects[i]);
+                _Effects.RemoveAt(i);
+                print(i);
                 i--;
             }
         }
@@ -140,6 +143,7 @@ public class BasicIA : MonoBehaviour
             else if (canJump)
             {
                 _stateMachine.SetBool("IsJumping", true);
+                audioManager.Play("Jump");
             }
         }
 
@@ -205,6 +209,7 @@ public class BasicIA : MonoBehaviour
         {
             if (!hasStartedFall)
             {
+                audioManager.Play("Fall");
                 groundedOnBin = false;
                 fallStartY = transform.position.y;
                 hasStartedFall = true;
@@ -219,11 +224,22 @@ public class BasicIA : MonoBehaviour
             float fallLenght = fallStartY - transform.position.y;
             if (fallLenght > 10 && !groundedOnBin)
             {
+                audioManager.Play("Damage");
                 Die();
             }
-            else
+            else if (fallLenght > 10 && groundedOnBin)
             {
-                //TODO : PERDRE UNE VIE
+                audioManager.Play("Damage");
+                _life--;
+                if (_life == 1)
+                {
+                    renderer.color = new Color(255, 0, 0);
+                } else if (_life <= 0)
+                {
+                    _life = maxLife;
+                    renderer.color = new Color(255, 255, 255);
+                    Die();
+                }
             }
 
             hasStartedFall = false;
