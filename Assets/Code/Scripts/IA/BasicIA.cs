@@ -209,7 +209,7 @@ public class BasicIA : MonoBehaviour
         {
             if (!hasStartedFall)
             {
-                audioManager.Play("Fall");
+                //audioManager.Play("Fall");
                 groundedOnBin = false;
                 fallStartY = transform.position.y;
                 hasStartedFall = true;
