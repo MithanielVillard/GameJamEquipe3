@@ -25,6 +25,8 @@ public class Effect
 
     public bool Use()
     {
+        Debug.Log(IsEnd);
+        if (!IsEnd && usageLeft == -1) return false;
         if (usageLeft == -1) return true;
         if (usageLeft == 0) return false;
         usageLeft -= 1;
