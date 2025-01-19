@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class VirtualCamera : MonoBehaviour
 {
@@ -14,13 +11,11 @@ public class VirtualCamera : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera endCamera;
     [SerializeField] private CinemachineVirtualCamera debugCamera;
     [SerializeField] private CinemachineVirtualCamera followCamera;
-    [SerializeField] private AudioManager audioManager;
     
     private float progress;
 
     private void Start()
     {
-        audioManager.Play("Walk");
         debugCamera.Priority = 0;
         if (followPlayer)
         {
