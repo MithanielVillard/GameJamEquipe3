@@ -29,6 +29,7 @@ public class Vent : MonoBehaviour
         }
         player.transform.position = otherVent.transform.position + new Vector3(posOffset, 1);
         audio.Play("VentOut");
+        vented = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
