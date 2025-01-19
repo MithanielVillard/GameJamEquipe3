@@ -244,7 +244,6 @@ public class BasicIA : MonoBehaviour
                 Die();
                 break;
             case "SuicidePoint":
-                Debug.Log("Feur");
                 nearestSuicidePoint = other.GetComponent<SuicidePoint>();
                 break;
             case "Effect":
@@ -262,7 +261,6 @@ public class BasicIA : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("MORT");
         _stateMachine.SetTrigger("OnDeath");
     }
 }
