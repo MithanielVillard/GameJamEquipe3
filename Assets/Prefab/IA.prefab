@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 995668202157581273}
   - component: {fileID: 8406552524780344298}
   - component: {fileID: 5076594487379792694}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 472966667909577653}
   - component: {fileID: 8351685208574828692}
   - component: {fileID: 3489616390440290869}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RWall Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,13 +195,13 @@ GameObject:
   - component: {fileID: 4488224795416995703}
   - component: {fileID: 6130047344292749309}
   - component: {fileID: 4169263370849120033}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sky Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4488224795416995703
 Transform:
   m_ObjectHideFlags: 0
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 8810571208067802771}
   - component: {fileID: 9154582569144044811}
   - component: {fileID: 2718678304992418649}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LWall Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 3665196304728983112}
   - component: {fileID: 3694513021783194847}
   - component: {fileID: 6922533146534665546}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: IA
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -582,16 +582,14 @@ MonoBehaviour:
   nearestSuicidePoint: {fileID: 0}
   levelStart: {fileID: 0}
   levelEnd: {fileID: 0}
-  renderer: {fileID: 0}
+  maxLife: 0
   winText: {fileID: 0}
-  destination: {fileID: 0}
   _direction: {x: 0, y: 0}
   _movementX: 0
   respawnTime: 1
   respawnProgress: 0
-  references:
-    version: 2
-    RefIds: []
+  audioManager: {fileID: 0}
+  destination: {fileID: 0}
 --- !u!50 &1112647696984627658
 Rigidbody2D:
   serializedVersion: 4
@@ -709,7 +707,7 @@ GameObject:
   - component: {fileID: 5428142456175470561}
   - component: {fileID: 4634180939326331407}
   - component: {fileID: 522997158793216259}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Large Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
