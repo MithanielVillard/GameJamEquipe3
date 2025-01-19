@@ -16,15 +16,18 @@ public class VirtualCamera : MonoBehaviour
 
     private void Start()
     {
+        FollowPlayer followPlayerScript = followCamera.GetComponent<FollowPlayer>();
         debugCamera.Priority = 0;
         if (followPlayer)
         {
             followCamera.Priority = 1;
+            followPlayerScript.enabled = true;
+            followPlayerScript.xLimits = new Vector2(startCamera.transform.position.x, endCamera.transform.position.x);
             enabled = false;
             return;
         }
         startCamera.Priority = 1;
-        followCamera.GetComponent<FollowPlayer>().enabled = false;
+        followPlayerScript.enabled = false;
     }
     
     private void Update()

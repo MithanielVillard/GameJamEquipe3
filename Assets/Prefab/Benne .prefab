@@ -191,7 +191,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 49.97, y: -2.36, z: -0.062238}
-  m_LocalScale: {x: 0.1091434, y: 0.1091434, z: 0.1091434}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2401280611848130738}
@@ -212,6 +212,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: -0.1, y: -3}
+  clickedCallBack:
+    m_PersistentCalls:
+      m_Calls: []
   shadowColor: {r: 0, g: 0, b: 0, a: 0.79607844}
   <UseBound>k__BackingField: 0
   <MinBound>k__BackingField: {x: 0, y: 0}
@@ -245,10 +248,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.7862835, y: -1.7897612}
+  m_Offset: {x: -0.7862835, y: -0.33810353}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -259,7 +262,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 27.27885, y: 11.266347}
+  m_Size: {x: 27.27885, y: 14.169664}
   m_EdgeRadius: 0
 --- !u!198 &4488247705655468050
 ParticleSystem:
